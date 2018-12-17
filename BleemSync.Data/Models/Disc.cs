@@ -13,7 +13,7 @@ namespace BleemSync.Data.Models
         public int DiscId { get; set; }
 
         [Column("GAME_ID")]
-        public int GameId { get; set; }
+        public string GameId { get; set; }
 
         [Column("DISC_NUMBER")]
         public int DiscNumber { get; set; }

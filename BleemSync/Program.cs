@@ -45,8 +45,7 @@ namespace BleemSync
             {
                 var gameService = new GameService(configuration);
 
-                var gameIds = Filesystem.GetGameIds(configuration["GamesPath"]);
-
+                var gameIds = Directory.GetDirectories(configuration["GamesPath"]).Select(path => new DirectoryInfo(path).Name);
 
                 foreach (var existingGame in db.Games)
                 {
@@ -102,7 +101,7 @@ namespace BleemSync
                     Console.WriteLine(e.InnerException);
                 }
 
-                Console.WriteLine($"Successfully inserted {gameIds.Count} games");
+                Console.WriteLine($"Successfully inserted {gameIds.Count()} games");
             }
             catch (Exception e)
             {

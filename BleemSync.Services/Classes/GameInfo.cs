@@ -7,7 +7,7 @@ namespace BleemSync.Data.Models
 {
     public class GameInfo
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Title { get; set; }
         public string Publisher { get; set; }
         public int Year { get; set; }

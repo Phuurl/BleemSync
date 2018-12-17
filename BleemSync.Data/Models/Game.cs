@@ -10,7 +10,7 @@ namespace BleemSync.Data.Models
     public class Game
     {
         [Key, Column("GAME_ID")]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Column("GAME_TITLE_STRING")]
         public string Title { get; set; }

@@ -22,7 +22,7 @@ namespace BleemSync.Services
             _configuration = configuration;
         }
 
-        public GameInfo GetGameInfo(int gameId)
+        public GameInfo GetGameInfo(string gameId)
         {
             GameInfo game;
 
@@ -39,13 +39,13 @@ namespace BleemSync.Services
             return game;
         }
 
-        public GameInfo GetGameInfoFromFile(int gameId)
+        public GameInfo GetGameInfoFromFile(string gameId)
         {
             var gamesDirectory = Filesystem.GetGamesDirectory(_configuration["GamesPath"]);
 
             Configuration config = null;
 
-            var path = Path.Combine(new [] { gamesDirectory, gameId.ToString(), "GameData", "Game.ini"});
+            var path = Path.Combine(new [] { gamesDirectory, gameId, "GameData", "Game.ini"});
             config = Configuration.LoadFromFile(path);
 
             var section = config["Game"];
@@ -76,11 +76,11 @@ namespace BleemSync.Services
             config.SaveToFile(Path.Combine(path, "GameData", "Game.ini"));
         }
 
-        public GameInfo GetGameInfoFromCentral(int gameId)
+        public GameInfo GetGameInfoFromCentral(string gameId)
         {
             var gamesDirectory = Filesystem.GetGamesDirectory(_configuration["GamesPath"]);
 
-            var files = Directory.GetFiles(Path.Combine(gamesDirectory, gameId.ToString(), "GameData"));
+            var files = Directory.GetFiles(Path.Combine(gamesDirectory, gameId, "GameData"));
             var discMap = new Dictionary<string, string>();
             var gameInfo = new GameInfo();
 
@@ -146,7 +146,7 @@ namespace BleemSync.Services
 
                 }
             }
-            catch
+            catch (Exception e)
             {
                 Console.WriteLine($"Could not grab game info for serial {discMap.Keys.First()}");
                 throw;
