@@ -18,31 +18,6 @@ namespace BleemSync.Utilities
             return Path.GetDirectoryName(path);
         }
 
-        public static List<int> GetGameIds(string gamesDir = "")
-        {
-            gamesDir = GetGamesDirectory(gamesDir);
-
-            var dirList = Directory.GetDirectories(gamesDir).Select(path => new DirectoryInfo(path).Name);
-
-            var gameIds = dirList.Select(directoryName =>
-            {
-                if (int.TryParse(directoryName, out var gameId)) {
-                    return gameId;
-                }
-
-                throw new Exception($"Found game with invalid id: {directoryName}");
-            }).ToList();
-
-            gameIds.Sort();
-
-            if (gameIds.First() != 1 && gameIds.Last() != gameIds.Count())
-            {
-                throw new Exception("Your games directory structure is invalid. Make sure that folders are named as a whole number (e.g. 1, 2, 3) and there are no gaps in the sequence");
-            }
-
-            return gameIds;
-        }
-
         public static string GetGamesDirectory(string gamesDir = "")
         {
             var currentPath = GetExecutingDirectory();

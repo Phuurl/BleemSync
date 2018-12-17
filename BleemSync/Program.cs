@@ -44,8 +44,9 @@ namespace BleemSync
             try
             {
                 var gameService = new GameService(configuration);
+                var gamesDir = Filesystem.GetGamesDirectory(configuration["GamesPath"]);
 
-                var gameIds = Directory.GetDirectories(configuration["GamesPath"]).Select(path => new DirectoryInfo(path).Name);
+                var gameIds = Directory.GetDirectories(gamesDir).Select(path => new DirectoryInfo(path).Name);
 
                 foreach (var existingGame in db.Games)
                 {
